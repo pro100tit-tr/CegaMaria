@@ -35,11 +35,11 @@ async def start(client, message):
                 InlineKeyboardButton('🤖 Haberler', url=f'https://t.me/{SUPPORT_CHAT}')
             ],
             [
-                InlineKeyboardButton('ℹ️Yardım', url=f"https://t.me/{temp.U_NAME}?start=help"),
+                InlineKeyboardButton('ℹ️ Yardım', url=f"https://t.me/{temp.U_NAME}?start=help"),
             ]
             ]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply(script.START_TXT.format(message.from_user.mention if message.from_user else message.chat.title, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, protect_content=True)
+        await client.send_message(chat_id=message.from_user.id, script.START_TXT.format(message.from_user.mention if message.from_user else message.chat.title, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, protect_content=True)
         await asyncio.sleep(2) # 😢 https://github.com/EvamariaTG/EvaMaria/blob/master/plugins/p_ttishow.py#L17 😬 wait a bit, before checking.
         if not await db.get_chat(message.chat.id):
             total=await client.get_chat_members_count(message.chat.id)
@@ -59,7 +59,8 @@ async def start(client, message):
             InlineKeyboardButton('😊 Hakkımda', callback_data='about')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_photo(
+        await client.send_photo(
+            chat_id=message.from_user.id,
             photo=random.choice(PICS),
             caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
@@ -102,7 +103,8 @@ async def start(client, message):
             InlineKeyboardButton('😊 Hakkımda', callback_data='about')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_photo(
+        await client.send_photo(
+            chat_id=message.from_user.id,
             photo=random.choice(PICS),
             caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
